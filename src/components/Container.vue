@@ -1,9 +1,9 @@
 <template>
 
 <div id="container">
-     <ul  v-for="(color, i) in colors" :key="color.id">
-         <Square v-if="checkWin"  :color="pickedColor" :pickedColor="pickedColor" :setMessage="setMessage" />
-         <Square v-else  :color="colors[i]" :pickedColor="pickedColor" :setMessage="setMessage" />
+     <ul  v-for="(color, i) in $store.state.colors" :key="color.id">
+         <Square v-if="checkWin"  :color="$store.state.color" />
+         <Square v-else  :color="$store.state.colors[i]"/>
     </ul>   
 </div>
 
@@ -11,16 +11,14 @@
 
 <script lang="js">
   import Square from './Square.vue'
+  import { miMixinLocal } from '../localMixins'
   export default  {
     name: 'Container',
     components:{ 
         Square
     },
+    mixins:[miMixinLocal],
     props: {
-        colors: Array,
-        pickedColor: String,
-        setMessage: Function,
-        checkWin: Function,
     },
 }
 

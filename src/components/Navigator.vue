@@ -2,10 +2,10 @@
 
 <div id="navigator">
 		<button id="reset" @click="reset"> {{ buttonResetText }} </button>
-		<span id="message"> {{ messageNavigator }} </span>
+		<span id="message"> {{ $store.state.messageNavigator }} </span>
 		
-		<button id="easy" @click="changeDifficult(false)" :class="!isHard ? 'selected' : '' ">easy</button>
-		<button id="hard" @click="changeDifficult(true)" :class="isHard ? 'selected' : '' ">hard</button>
+		<button id="easy" @click="changeDifficult(false)" :class="!$store.state.isHard ? 'selected' : '' ">easy</button>
+		<button id="hard" @click="changeDifficult(true)" :class="$store.state.isHard ? 'selected' : '' ">hard</button>
 	</div>
 
 </template>
@@ -15,28 +15,24 @@
   export default  {
     name: 'Navigator',
     props: {
-        messageNavigator: String,
-		restart: Function,
     },
     data () {
       return {
-		isHard: true
       }
     },
     methods: {
 		changeDifficult(isHard){
-			if(this.isHard !== isHard){
-				this.isHard = isHard
-				this.restart(isHard)
+			if(this.$store.state.isHard !== isHard){
+				this.$store.dispatch('restart', isHard)
 			}
 		},
 		reset(){
-			this.restart(this.isHard)
+			this.$store.dispatch('restart', this.$store.state.isHard)
 		}
     },
     computed: {
         buttonResetText: function() {
-            return this.messageNavigator == 'You Picked Right!' ? 'Play Again!' : 'New colors!'  
+            return this.$store.state.messageNavigator == 'You Picked Right!' ? 'Play Again!' : 'New colors!'  
         }
     },
 }

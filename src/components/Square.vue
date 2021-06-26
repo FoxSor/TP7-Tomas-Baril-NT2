@@ -1,6 +1,5 @@
 <template>
     <div class="square" :style="{ background: color }" @click="clickSquare()">
-
     </div>
 </template>
 
@@ -10,8 +9,6 @@
     name: 'Square',
     props: {
         color: String,
-        pickedColor: String,
-        setMessage: Function,
     },
     mounted () {
     },
@@ -22,16 +19,16 @@
     methods: {
         clickSquare(){           
             if(this.win()){
-                this.setMessage('You Picked Right!')
+                this.$store.dispatch('setMessageNavigator', 'You Picked Right!')
             }
             else{
                 this.color = "#232323"
-                this.setMessage('Try Again!')
+                this.$store.dispatch('setMessageNavigator', 'Try Again!')
             }
         },
 
         win(){
-            return this.color == this.pickedColor
+            return this.color == this.$store.state.color
         },
     },
 }

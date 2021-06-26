@@ -1,19 +1,19 @@
 <template>
-	<div id="header" :style="{ background: checkWin ? color : ''  }">
+	<div id="header" :style="{ background: checkWin ? $store.state.color : ''  }">
 		<h1>The Great <br>
-			<span id="colorDisplay">{{color}} </span>
+			<span id="colorDisplay">{{$store.state.color}} </span>
 			<br>
 			Guessing Game</h1>
 	</div>
 </template>
 
 <script>
+import { miMixinLocal } from '../localMixins'
 export default {
   name: 'Header',
   props: {
-      color: String,
-      checkWin: Function,
   },
+  mixins:[miMixinLocal]
 }
 </script>
 
